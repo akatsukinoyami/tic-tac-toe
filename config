@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+	sshCommand = ssh -i ~/.ssh/katsu -F /dev/null
+
+[remote "origin"]
+	url = https://github.com/akatsukinoyami/tic-tac-toe.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[user]
+	name = akatsukinoyami
+	email = hirokod3@gmail.com
