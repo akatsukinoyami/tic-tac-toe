@@ -1,6 +1,14 @@
 <script lang="ts">
     import Cell from "./Cell.svelte";
-    let statuses: string[], winner: boolean | string;
+
+    function clear() {
+      winner = false;
+      statuses = [...Array(9)].fill("empty");
+    }
+
+    let 
+      statuses: string[], 
+      winner: boolean | string;
     clear();
   
     const combinations = [
@@ -14,16 +22,16 @@
       [2, 5, 8]
     ];
   
-    function check() {
-      combinations.forEach(combination => {
-        if (combination.every(i => statuses[i] === "cross")) winner = "User";
-        if (combination.every(i => statuses[i] === "circle")) winner = "Computer";
+    function check(): void {
+      combinations.forEach((combination: number[]) => {
+        if (combination.every((i: number) => statuses[i] === "cross")) winner = "User";
+        if (combination.every((i: number) => statuses[i] === "circle")) winner = "Computer";
       });
   
-      if (!winner && !statuses.find(i => i === "empty")) winner = "Draw";
+      if (!winner && !statuses.find((i : string) => i === "empty")) winner = "Draw";
     }
   
-    function setCell(i: number) {
+    function setCell(i: number): boolean {
       if (statuses[i] === "empty") {
         statuses[i] = "circle";
         return true;
@@ -31,15 +39,15 @@
       return false;
     }
   
-    function setRandomly() {
+    function setRandomly(): boolean {
       return [...Array(9)].some(() => setCell(Math.floor(Math.random() * 8)));
     }
   
-    function setFirst() {
+    function setFirst(): boolean {
       return [...Array(9)].some(i => setCell(i));
     }
   
-    function compute(cell) {
+    function compute(cell: number): void {
       if (!winner && statuses[cell] === "empty") {
         statuses[cell] = "cross";
         check();
@@ -47,11 +55,6 @@
         !winner && !setRandomly() && setFirst();
         check();
       }
-    }
-  
-    function clear() {
-      winner = false;
-      statuses = [...Array(9)].fill("empty");
     }
   
     $: props = { statuses, compute };
